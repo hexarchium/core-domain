@@ -8,11 +8,15 @@ use Hexarchium\CoreDomain\Aggregate\AbstractAggregateRoot;
 use Hexarchium\CoreDomain\Model\Domain\DomainId;
 use Hexarchium\CoreDomain\Model\Domain\Events\DomainCreated;
 use Hexarchium\CoreDomain\Model\Domain\Events\ModelAdded;
+use Hexarchium\CoreDomain\Model\Domain\Events\UseCaseAdded;
 
 class Domain extends AbstractAggregateRoot
 {
     /** @var  Model[] */
     private $models;
+
+    /** @var  UseCase[] */
+    private $useCases;
 
     /**
      * Domain constructor.
@@ -35,6 +39,14 @@ class Domain extends AbstractAggregateRoot
 
         $this->pushEvent(
             new ModelAdded(new \DateTime(), $model)
+        );
+    }
+
+    public function addUseCase(UseCase $useCase)
+    {
+        $this->useCases[] = $useCase;
+        $this->pushEvent(
+            new UseCaseAdded(new \DateTime(), $useCase)
         );
     }
 }

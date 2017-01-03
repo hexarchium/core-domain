@@ -7,9 +7,12 @@ use Hexarchium\CoreDomain\Events\DomainEventInterface;
 use Hexarchium\CoreDomain\Model\Domain\DomainId;
 use Hexarchium\CoreDomain\Model\Domain\Entity\Domain;
 use Hexarchium\CoreDomain\Model\Domain\Entity\Model;
+use Hexarchium\CoreDomain\Model\Domain\Entity\UseCase;
 use Hexarchium\CoreDomain\Model\Domain\Events\DomainCreated;
 use Hexarchium\CoreDomain\Model\Domain\Events\ModelAdded;
+use Hexarchium\CoreDomain\Model\Domain\Events\UseCaseAdded;
 use Hexarchium\CoreDomain\Model\Domain\Model\ModelId;
+use Hexarchium\CoreDomain\Model\Domain\UseCase\UseCaseId;
 use PhpSpec\ObjectBehavior;
 
 class DomainSpec extends ObjectBehavior
@@ -53,6 +56,26 @@ class DomainSpec extends ObjectBehavior
         $model->getId()->willReturn($modelId);
         $this->addModel($model);
         $this->pullEvents()->shouldReturnArrayWithAtLeastInstanceOf(ModelAdded::class);
+    }
+
+    function it_should_add_use_case(UseCase $useCase)
+    {
+        $useCaseId = new UseCaseId(
+            new DomainId('DomainId'), 'UseCaseId'
+        );
+        $useCase->getId()->willReturn($useCaseId);
+        $this->addUseCase($useCase)->shouldReturn(null);
+    }
+
+    function it_should_generate_event_after_add_use_case(UseCase $useCase)
+    {
+        $useCaseId = new UseCaseId(
+            new DomainId('DomainId'), 'UseCaseId'
+        );
+        $useCase->getId()->willReturn($useCaseId);
+        $this->addUseCase($useCase);
+
+        $this->pullEvents()->shouldReturnArrayWithAtLeastInstanceOf(UseCaseAdded::class);
     }
 
     function getMatchers()
