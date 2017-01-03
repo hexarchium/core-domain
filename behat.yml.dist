@@ -1,0 +1,10 @@
+default:
+  suites:
+    default:
+      contexts:
+        - DomainFeatureContext:
+          - "@Hexarchium\\CoreDomain\\UseCase\\CreateDomain\\UseCase"
+          - "@Hexarchium\\CoreDomain\\Model\\Domain\\Repository\\DomainRepositoryInterface"
+        - ModelFeatureContext:
+          - "@Hexarchium\\CoreDomain\\Model\\Domain\\Repository\\DomainRepositoryInterface"
+      services: "Helpers\\Container::factory"

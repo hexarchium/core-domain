@@ -1,0 +1,15 @@
+version: '2'
+services:
+  php:
+    image: webdevops/php:ubuntu-16.04
+    container_name: php7.0
+    volumes:
+      - ./:/app
+    working_dir: /app
+
+  composer:
+    image: composer/composer
+    container_name: composer
+    volumes_from:
+      - php
+    working_dir: /app

@@ -1,0 +1,14 @@
+sudo: required
+
+services:
+  - docker
+
+language: php
+
+before_script:
+  - docker-compose up -d
+  - docker-compose run composer install
+
+script:
+  - docker-compose run php php vendor/bin/phpspec run
+  - docker-compose run php php vendor/bin/behat
