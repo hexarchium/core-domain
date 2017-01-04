@@ -9,6 +9,9 @@ class Model
     /** @var ModelId */
     private $id;
 
+    /** @var  Domain */
+    private $domain;
+
     public function __construct(ModelId $modelId)
     {
         $this->id = $modelId;
@@ -17,5 +20,10 @@ class Model
     public function getId(): ModelId
     {
         return $this->id;
+    }
+
+    public function setDomain(Domain $domain)
+    {
+        $this->domain = $domain;
     }
 }

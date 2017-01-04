@@ -2,3 +2,5 @@ suites:
   default:
     namespace: Hexarchium\CoreDomain
     psr4_prefix: Hexarchium\CoreDomain
+extensions:
+  Cjm\PhpSpec\Extension\TypeHintedMethodsExtension: ~

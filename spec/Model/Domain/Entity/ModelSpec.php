@@ -3,6 +3,7 @@
 namespace spec\Hexarchium\CoreDomain\Model\Domain\Entity;
 
 use Hexarchium\CoreDomain\Aggregate\AggregateRootInterface;
+use Hexarchium\CoreDomain\Model\Domain\Entity\Domain;
 use Hexarchium\CoreDomain\Model\Domain\Entity\Model;
 use Hexarchium\CoreDomain\Model\Domain\Model\ModelId;
 use PhpSpec\ObjectBehavior;
@@ -23,5 +24,10 @@ class ModelSpec extends ObjectBehavior
     function it_should_return_id_by_getter()
     {
         $this->getId()->shouldReturnAnInstanceOf(ModelId::class);
+    }
+
+    function it_should_allow_assign_domain(Domain $domain)
+    {
+        $this->setDomain($domain)->shouldReturn(null);
     }
 }
