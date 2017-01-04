@@ -41,18 +41,14 @@ class DomainSpec extends ObjectBehavior
 
     function it_should_add_model(Model $model)
     {
-        $modelId = new ModelId(
-            new DomainId('DomainId'), 'ModelId'
-        );
+        $modelId = new ModelId('ModelId');
         $model->getId()->willReturn($modelId);
         $this->addModel($model)->shouldReturn(null);
     }
 
     function it_should_generate_event_after_add_model(Model $model)
     {
-        $modelId = new ModelId(
-            new DomainId('DomainId'), 'ModelId'
-        );
+        $modelId = new ModelId('ModelId');
         $model->getId()->willReturn($modelId);
         $this->addModel($model);
         $this->pullEvents()->shouldReturnArrayWithAtLeastInstanceOf(ModelAdded::class);

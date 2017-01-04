@@ -2,9 +2,9 @@
 
 namespace Hexarchium\CoreDomain\Model\Domain\Model;
 
-use Hexarchium\CoreDomain\ValueObject\AbstractDomainId;
+use Hexarchium\CoreDomain\ValueObject\AbstractId;
 
-class ModelId extends AbstractDomainId
+class ModelId extends AbstractId
 {
 
 }

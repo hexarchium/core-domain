@@ -3,7 +3,6 @@
 namespace spec\Hexarchium\CoreDomain\Model\Domain\Events;
 
 use Hexarchium\CoreDomain\Events\DomainEventInterface;
-use Hexarchium\CoreDomain\Model\Domain\DomainId;
 use Hexarchium\CoreDomain\Model\Domain\Entity\Model;
 use Hexarchium\CoreDomain\Model\Domain\Events\ModelAdded;
 use Hexarchium\CoreDomain\Model\Domain\Model\ModelId;
@@ -13,9 +12,7 @@ class ModelAddedSpec extends ObjectBehavior
 {
     function let(Model $model)
     {
-        $modelId = new ModelId(
-            new DomainId('DomainId'), 'ModelId'
-        );
+        $modelId = new ModelId('ModelId');
         $model->getId()->willReturn($modelId);
         $this->beConstructedWith(new \DateTime(), $model);
     }

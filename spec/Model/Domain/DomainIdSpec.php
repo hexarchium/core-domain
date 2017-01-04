@@ -23,4 +23,10 @@ class DomainIdSpec extends ObjectBehavior
     {
         $this->getId()->shouldReturn('Domain');
     }
+
+    function it_should_check_if_equal_other_domain_id()
+    {
+        $this->equal(new DomainId('Domain'))->shouldReturn(true);
+        $this->equal(new DomainId('OtherDomain'))->shouldReturn(false);
+    }
 }
