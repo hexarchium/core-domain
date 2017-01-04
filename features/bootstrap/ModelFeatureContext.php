@@ -27,11 +27,10 @@ class ModelFeatureContext implements \Behat\Behat\Context\Context
      */
     public function iCreateModelWithIdForDomain($arg1, $arg2)
     {
-        $domainId = new DomainId($arg2);
-        $domain = $this->domainRepository->getById($domainId);
+        $domain = $this->domainRepository->getById(new DomainId($arg2));
         $domain->addModel(
             new \Hexarchium\CoreDomain\Model\Domain\Entity\Model(
-                new \Hexarchium\CoreDomain\Model\Domain\Model\ModelId($domainId, $arg1)
+                new \Hexarchium\CoreDomain\Model\Domain\Model\ModelId($arg1)
             )
         );
     }
