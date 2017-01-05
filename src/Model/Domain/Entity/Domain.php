@@ -36,6 +36,7 @@ class Domain extends AbstractAggregateRoot
     public function addModel(Model $model)
     {
         $this->models[] = $model;
+        $model->setDomain($this);
 
         $this->pushEvent(
             new ModelAdded(new \DateTime(), $model)
