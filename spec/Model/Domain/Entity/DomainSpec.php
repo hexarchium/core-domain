@@ -58,18 +58,14 @@ class DomainSpec extends ObjectBehavior
 
     function it_should_add_use_case(UseCase $useCase)
     {
-        $useCaseId = new UseCaseId(
-            new DomainId('DomainId'), 'UseCaseId'
-        );
+        $useCaseId = new UseCaseId('UseCaseId');
         $useCase->getId()->willReturn($useCaseId);
         $this->addUseCase($useCase)->shouldReturn(null);
     }
 
     function it_should_generate_event_after_add_use_case(UseCase $useCase)
     {
-        $useCaseId = new UseCaseId(
-            new DomainId('DomainId'), 'UseCaseId'
-        );
+        $useCaseId = new UseCaseId('UseCaseId');
         $useCase->getId()->willReturn($useCaseId);
         $this->addUseCase($useCase);
 

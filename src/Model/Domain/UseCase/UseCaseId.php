@@ -2,8 +2,8 @@
 
 namespace Hexarchium\CoreDomain\Model\Domain\UseCase;
 
-use Hexarchium\CoreDomain\ValueObject\AbstractDomainId;
+use Hexarchium\CoreDomain\ValueObject\AbstractId;
 
-class UseCaseId extends AbstractDomainId
+class UseCaseId extends AbstractId
 {
 }

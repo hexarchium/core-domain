@@ -3,7 +3,6 @@
 namespace spec\Hexarchium\CoreDomain\Model\Domain\Events;
 
 use Hexarchium\CoreDomain\Events\DomainEventInterface;
-use Hexarchium\CoreDomain\Model\Domain\DomainId;
 use Hexarchium\CoreDomain\Model\Domain\Entity\UseCase;
 use Hexarchium\CoreDomain\Model\Domain\Events\UseCaseAdded;
 use Hexarchium\CoreDomain\Model\Domain\UseCase\UseCaseId;
@@ -11,13 +10,11 @@ use PhpSpec\ObjectBehavior;
 
 class UseCaseAddedSpec extends ObjectBehavior
 {
-    function let(UseCase $model)
+    function let(UseCase $useCase)
     {
-        $modelId = new UseCaseId(
-            new DomainId('DomainId'), 'UseCaseId'
-        );
-        $model->getId()->willReturn($modelId);
-        $this->beConstructedWith(new \DateTime(), $model);
+        $useCaseId = new UseCaseId('UseCaseId');
+        $useCase->getId()->willReturn($useCaseId);
+        $this->beConstructedWith(new \DateTime(), $useCase);
     }
 
     function it_is_initializable()
