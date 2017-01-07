@@ -43,6 +43,7 @@ class DomainSpec extends ObjectBehavior
     {
         $modelId = new ModelId('ModelId');
         $model->getId()->willReturn($modelId);
+        $model->setDomain($this->getWrappedObject())->shouldBeCalled();
         $this->addModel($model)->shouldReturn(null);
     }
 
@@ -50,6 +51,7 @@ class DomainSpec extends ObjectBehavior
     {
         $modelId = new ModelId('ModelId');
         $model->getId()->willReturn($modelId);
+        $model->setDomain($this->getWrappedObject())->shouldBeCalled();
         $this->addModel($model);
         $this->pullEvents()->shouldReturnArrayWithAtLeastInstanceOf(ModelAdded::class);
     }
