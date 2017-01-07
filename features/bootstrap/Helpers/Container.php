@@ -3,8 +3,9 @@
 namespace Helpers;
 
 use Helpers\Repository\DomainRepository;
+use Hexarchium\CoreDomain\Factory\UseCase\CreateDomainUseCaseFactory;
+use Hexarchium\CoreDomain\Factory\UseCase\CreateModelUseCaseFactory;
 use Hexarchium\CoreDomain\Model\Domain\Repository\DomainRepositoryInterface;
-use Hexarchium\CoreDomain\UseCase\CreateDomain\UseCase;
 use Interop\Container\ContainerInterface;
 
 /**
@@ -12,32 +13,63 @@ use Interop\Container\ContainerInterface;
  */
 class Container extends \ArrayObject implements ContainerInterface
 {
-    public function factory()
+    static public function factory()
     {
         $container = new Container();
-
-        $container->offsetSet(
-            DomainRepositoryInterface::class,
-            new DomainRepository()
-        );
-
-        $container->offsetSet(
-            UseCase::class,
-            new UseCase(
-                $container->get(DomainRepositoryInterface::class)
-            )
-        );
+        $container->initializeRepository();
+        $container->initializeFactory();
+        $container->initializeUseCase();
 
         return $container;
     }
 
+    protected function initializeRepository()
+    {
+        $this->set(
+            DomainRepositoryInterface::class,
+            new DomainRepository()
+        );
+    }
+
     /**
-     * Finds an entry of the container by its identifier and returns it.
-     *
-     * @param string $id Identifier of the entry to look for.
-     * @return mixed No entry was found for this identifier.
-     * @throws \Exception
+     * @param string $name
+     * @param mixed $value
      */
+    protected function set($name, $value)
+    {
+        $this->offsetSet($name, $value);
+    }
+
+    protected function initializeFactory()
+    {
+        $this->set(
+            CreateDomainUseCaseFactory::class,
+            new CreateDomainUseCaseFactory()
+        );
+
+        $this->set(
+            CreateModelUseCaseFactory::class,
+            new CreateModelUseCaseFactory()
+        );
+    }
+
+    protected function initializeUseCase()
+    {
+        $this->set(
+            \Hexarchium\CoreDomain\UseCase\CreateDomain\UseCase::class,
+            $this->get(CreateDomainUseCaseFactory::class)->factory(
+                $this->get(DomainRepositoryInterface::class)
+            )
+        );
+
+        $this->set(
+            \Hexarchium\CoreDomain\UseCase\CreateModel\UseCase::class,
+            $this->get(CreateModelUseCaseFactory::class)->factory(
+                $this->get(DomainRepositoryInterface::class)
+            )
+        );
+    }
+
     public function get($id)
     {
         if (!$this->has($id)) {
@@ -47,14 +79,6 @@ class Container extends \ArrayObject implements ContainerInterface
         return $this->offsetGet($id);
     }
 
-    /**
-     * Returns true if the container can return an entry for the given identifier.
-     * Returns false otherwise.
-     *
-     * @param string $id Identifier of the entry to look for.
-     *
-     * @return boolean
-     */
     public function has($id)
     {
         return $this->offsetExists($id);

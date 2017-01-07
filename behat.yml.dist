@@ -6,5 +6,8 @@ default:
           - "@Hexarchium\\CoreDomain\\UseCase\\CreateDomain\\UseCase"
           - "@Hexarchium\\CoreDomain\\Model\\Domain\\Repository\\DomainRepositoryInterface"
         - ModelFeatureContext:
+          - "@Hexarchium\\CoreDomain\\UseCase\\CreateModel\\UseCase"
+          - "@Hexarchium\\CoreDomain\\Model\\Domain\\Repository\\DomainRepositoryInterface"
+        - UseCaseFeatureContext:
           - "@Hexarchium\\CoreDomain\\Model\\Domain\\Repository\\DomainRepositoryInterface"
       services: "Helpers\\Container::factory"

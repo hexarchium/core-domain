@@ -2,6 +2,9 @@
 use Helpers\Repository\DomainRepository;
 use Hexarchium\CoreDomain\Model\Domain\DomainId;
 use Hexarchium\CoreDomain\Model\Domain\Events\ModelAdded;
+use Hexarchium\CoreDomain\Model\Domain\Model\ModelId;
+use Hexarchium\CoreDomain\UseCase\CreateModel\Command;
+use Hexarchium\CoreDomain\UseCase\CreateModel\UseCase;
 use PHPUnit_Framework_Assert as Assert;
 
 /**
@@ -11,15 +14,19 @@ class ModelFeatureContext implements \Behat\Behat\Context\Context
 {
     /** @var  DomainRepository */
     private $domainRepository;
+    /** @var UseCase */
+    private $useCase;
 
     /**
      * ModelFeatureContext constructor.
      *
+     * @param UseCase $useCase
      * @param DomainRepository $domainRepository
      */
-    public function __construct(DomainRepository $domainRepository)
+    public function __construct(UseCase $useCase, DomainRepository $domainRepository)
     {
         $this->domainRepository = $domainRepository;
+        $this->useCase = $useCase;
     }
 
     /**
@@ -27,12 +34,10 @@ class ModelFeatureContext implements \Behat\Behat\Context\Context
      */
     public function iCreateModelWithIdForDomain($arg1, $arg2)
     {
-        $domain = $this->domainRepository->getById(new DomainId($arg2));
-        $domain->addModel(
-            new \Hexarchium\CoreDomain\Model\Domain\Entity\Model(
-                new \Hexarchium\CoreDomain\Model\Domain\Model\ModelId($arg1)
-            )
+        $command = new Command(
+            new ModelId($arg1), new DomainId($arg2)
         );
+        $this->useCase->handle($command);
     }
 
     /**
