@@ -46,6 +46,8 @@ class Domain extends AbstractAggregateRoot
     public function addUseCase(UseCase $useCase)
     {
         $this->useCases[] = $useCase;
+        $useCase->setDomain($this);
+
         $this->pushEvent(
             new UseCaseAdded(new \DateTime(), $useCase)
         );

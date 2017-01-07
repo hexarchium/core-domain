@@ -5,6 +5,7 @@ namespace Helpers;
 use Helpers\Repository\DomainRepository;
 use Hexarchium\CoreDomain\Factory\UseCase\CreateDomainUseCaseFactory;
 use Hexarchium\CoreDomain\Factory\UseCase\CreateModelUseCaseFactory;
+use Hexarchium\CoreDomain\Factory\UseCase\CreateUseCaseUseCaseFactory;
 use Hexarchium\CoreDomain\Model\Domain\Repository\DomainRepositoryInterface;
 use Interop\Container\ContainerInterface;
 
@@ -51,6 +52,11 @@ class Container extends \ArrayObject implements ContainerInterface
             CreateModelUseCaseFactory::class,
             new CreateModelUseCaseFactory()
         );
+
+        $this->set(
+            CreateUseCaseUseCaseFactory::class,
+            new CreateUseCaseUseCaseFactory()
+        );
     }
 
     protected function initializeUseCase()
@@ -65,6 +71,13 @@ class Container extends \ArrayObject implements ContainerInterface
         $this->set(
             \Hexarchium\CoreDomain\UseCase\CreateModel\UseCase::class,
             $this->get(CreateModelUseCaseFactory::class)->factory(
+                $this->get(DomainRepositoryInterface::class)
+            )
+        );
+
+        $this->set(
+            \Hexarchium\CoreDomain\UseCase\CreateUseCase\UseCase::class,
+            $this->get(CreateUseCaseUseCaseFactory::class)->factory(
                 $this->get(DomainRepositoryInterface::class)
             )
         );

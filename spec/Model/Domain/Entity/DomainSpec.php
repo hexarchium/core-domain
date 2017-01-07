@@ -3,7 +3,6 @@
 namespace spec\Hexarchium\CoreDomain\Model\Domain\Entity;
 
 use Hexarchium\CoreDomain\Aggregate\AggregateRootInterface;
-use Hexarchium\CoreDomain\Events\DomainEventInterface;
 use Hexarchium\CoreDomain\Model\Domain\DomainId;
 use Hexarchium\CoreDomain\Model\Domain\Entity\Domain;
 use Hexarchium\CoreDomain\Model\Domain\Entity\Model;
@@ -44,6 +43,7 @@ class DomainSpec extends ObjectBehavior
         $modelId = new ModelId('ModelId');
         $model->getId()->willReturn($modelId);
         $model->setDomain($this->getWrappedObject())->shouldBeCalled();
+
         $this->addModel($model)->shouldReturn(null);
     }
 
@@ -52,6 +52,7 @@ class DomainSpec extends ObjectBehavior
         $modelId = new ModelId('ModelId');
         $model->getId()->willReturn($modelId);
         $model->setDomain($this->getWrappedObject())->shouldBeCalled();
+
         $this->addModel($model);
         $this->pullEvents()->shouldReturnArrayWithAtLeastInstanceOf(ModelAdded::class);
     }
@@ -60,6 +61,8 @@ class DomainSpec extends ObjectBehavior
     {
         $useCaseId = new UseCaseId('UseCaseId');
         $useCase->getId()->willReturn($useCaseId);
+        $useCase->setDomain($this->getWrappedObject())->shouldBeCalled();
+
         $this->addUseCase($useCase)->shouldReturn(null);
     }
 
@@ -67,23 +70,15 @@ class DomainSpec extends ObjectBehavior
     {
         $useCaseId = new UseCaseId('UseCaseId');
         $useCase->getId()->willReturn($useCaseId);
-        $this->addUseCase($useCase);
+        $useCase->setDomain($this->getWrappedObject())->shouldBeCalled();
 
+        $this->addUseCase($useCase);
         $this->pullEvents()->shouldReturnArrayWithAtLeastInstanceOf(UseCaseAdded::class);
     }
 
     function getMatchers()
     {
         return array(
-            'returnArrayOfDomainEvents'        => function ($subject) {
-                foreach ($subject as $element) {
-                    if (!$element instanceof DomainEventInterface) {
-                        return false;
-                    }
-                }
-
-                return true;
-            },
             'returnArrayWithAtLeastInstanceOf' => function ($subject, $eventClass) {
                 foreach ($subject as $element) {
                     if ($element instanceof $eventClass) {

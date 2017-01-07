@@ -35,7 +35,8 @@ class ModelFeatureContext implements \Behat\Behat\Context\Context
     public function iCreateModelWithIdForDomain($arg1, $arg2)
     {
         $command = new Command(
-            new ModelId($arg1), new DomainId($arg2)
+            new ModelId($arg1),
+            new DomainId($arg2)
         );
         $this->useCase->handle($command);
     }

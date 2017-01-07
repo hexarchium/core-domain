@@ -9,6 +9,9 @@ class UseCase
     /** @var UseCaseId */
     private $id;
 
+    /** @var  Domain */
+    private $domain;
+
     public function __construct(UseCaseId $id)
     {
         $this->id = $id;
@@ -17,5 +20,10 @@ class UseCase
     public function getId()
     {
         return $this->id;
+    }
+
+    public function setDomain(Domain $domain)
+    {
+        $this->domain = $domain;
     }
 }
