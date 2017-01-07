@@ -5,7 +5,7 @@
 namespace Hexarchium\CoreDomain\Exception;
 
 
-class CodeDomainException extends \Exception
+class CoreDomainException extends \Exception
 {
 
 }

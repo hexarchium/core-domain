@@ -29,6 +29,7 @@ class UseCaseSpec extends ObjectBehavior
 
         $command->getDomainId()->shouldBeCalled();
         $command->getUseCaseId()->shouldBeCalled();
+        $command->getUseCaseType()->willReturn('command');
 
         $this->handle($command)->shouldReturn(null);
     }

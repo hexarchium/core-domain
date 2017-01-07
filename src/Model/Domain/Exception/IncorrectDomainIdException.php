@@ -2,8 +2,8 @@
 
 namespace Hexarchium\CoreDomain\Model\Domain\Exception;
 
-use Hexarchium\CoreDomain\Exception\CodeDomainException;
+use Hexarchium\CoreDomain\Exception\CoreDomainException;
 
-class IncorrectDomainIdException extends CodeDomainException
+class IncorrectDomainIdException extends CoreDomainException
 {
 }

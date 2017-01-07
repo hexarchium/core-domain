@@ -30,13 +30,14 @@ class UseCaseFeatureContext implements \Behat\Behat\Context\Context
     }
 
     /**
-     * @When I create usecase with :arg1 id for :arg2 domain
+     * @When I create usecase with :arg1 and type :arg2 id for :arg3 domain
      */
-    public function iCreateUsecaseWithIdForDomain($arg1, $arg2)
+    public function iCreateUsecaseWithIdForDomain($arg1, $arg2, $arg3)
     {
         $command = new Command(
             new UseCaseId($arg1),
-            new DomainId($arg2)
+            new DomainId($arg3),
+            $arg2
         );
         $this->useCase->handle($command);
     }

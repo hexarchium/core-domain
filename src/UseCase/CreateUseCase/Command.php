@@ -13,16 +13,21 @@ class Command
     /** @var  DomainId */
     private $domainId;
 
+    /** @var string */
+    private $type;
+
     /**
      * Command constructor.
      *
      * @param UseCaseId $useCaseId
      * @param DomainId $domainId
+     * @param string $type
      */
-    public function __construct(UseCaseId $useCaseId, DomainId $domainId)
+    public function __construct(UseCaseId $useCaseId, DomainId $domainId, string $type)
     {
         $this->useCaseId = $useCaseId;
         $this->domainId = $domainId;
+        $this->type = $type;
     }
 
     public function getDomainId(): DomainId
@@ -33,5 +38,10 @@ class Command
     public function getUseCaseId(): UseCaseId
     {
         return $this->useCaseId;
+    }
+
+    public function getUseCaseType(): string
+    {
+        return $this->type;
     }
 }

@@ -3,6 +3,7 @@
 namespace Hexarchium\CoreDomain\UseCase\CreateUseCase;
 
 use Hexarchium\CoreDomain\Model\Domain\Repository\DomainRepositoryInterface;
+use Hexarchium\CoreDomain\Model\Domain\UseCase\Type;
 
 class UseCase
 {
@@ -24,7 +25,8 @@ class UseCase
         $domain = $this->domainRepository->getById($command->getDomainId());
 
         $useCase = new \Hexarchium\CoreDomain\Model\Domain\Entity\UseCase(
-            $command->getUseCaseId()
+            $command->getUseCaseId(),
+            new Type($command->getUseCaseType())
         );
 
         $domain->addUseCase($useCase);

@@ -11,7 +11,7 @@ class CommandSpec extends ObjectBehavior
 {
     function let(UseCaseId $useCaseId, DomainId $domainId)
     {
-        $this->beConstructedWith($useCaseId, $domainId);
+        $this->beConstructedWith($useCaseId, $domainId, 'command');
     }
 
     function it_is_initializable()
@@ -27,6 +27,11 @@ class CommandSpec extends ObjectBehavior
     function it_should_have_usecase_id_getter()
     {
         $this->getUseCaseId()->shouldBeAnInstanceOf(UseCaseId::class);
+    }
+
+    function it_should_have_usecase_type_getter()
+    {
+        $this->getUseCaseType()->shouldBeString();
     }
 
 }

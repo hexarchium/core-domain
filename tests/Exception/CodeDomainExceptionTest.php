@@ -4,13 +4,13 @@
  */
 namespace Hexarchium\CoreDomain\Tests\Exception;
 
-use Hexarchium\CoreDomain\Exception\CodeDomainException;
+use Hexarchium\CoreDomain\Exception\CoreDomainException;
 
-class CodeDomainExceptionTest extends \PHPUnit_Framework_TestCase
+class CoreDomainExceptionTest extends \PHPUnit_Framework_TestCase
 {
     public function testInitialize()
     {
-        $this->assertInstanceOf(CodeDomainException::class, new CodeDomainException());
+        $this->assertInstanceOf(CoreDomainException::class, new CoreDomainException());
     }
 }
 

@@ -6,5 +6,5 @@ Feature: Creating usecase
 
   Scenario: Creating model for given domain
     Given I have domain with "TestDomain" id
-    When I create usecase with "TestUseCase" id for "TestDomain" domain
+    When I create usecase with "TestUseCase" and type "command" id for "TestDomain" domain
     Then I should see new usecase in "TestDomain" domain
