@@ -1,7 +1,7 @@
 {
   "name": "hexarchium/core-domain",
   "description": "Core domain",
-  "minimum-stability": "stable",
+  "minimum-stability": "dev",
   "license": "MIT",
   "time": "2016-12-18",
   "require-dev": {
